@@ -40,9 +40,13 @@ class OffsiteCaptureAction extends BaseApiAwareAction implements PaymentAwareInt
             return;
         }
 
-        if (false == $details['returnUrl'] && $request->getToken()) {
-            $details['returnUrl'] = $request->getToken()->getTargetUrl();
-        }
+		if (false == $details['returnUrl'] && $request->getToken()) {
+			$details['returnUrl'] = $request->getToken()->getAfterUrl();
+		}
+	
+		if (false == $details['notifyUrl'] && $request->getToken()) {
+			$details['notifyUrl'] = $request->getToken()->getTargetUrl();
+		}
 
         if (false == $details['cancelUrl'] && $request->getToken()) {
             $details['cancelUrl'] = $request->getToken()->getTargetUrl();
